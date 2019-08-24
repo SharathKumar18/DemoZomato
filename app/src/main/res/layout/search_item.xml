@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="restaurant"
+            type="com.sample.zomatodemo.data.response.searchdata.RestaurantInfo" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height">
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            card_view:cardBackgroundColor="@color/colorItemBackground"
+            card_view:cardCornerRadius="@dimen/margin_3dp"
+            card_view:cardElevation="@dimen/margin_3dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/parent_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/margin_3dp">
+
+                <ImageView
+                    android:id="@+id/restaurant_thumb"
+                    android:layout_width="@dimen/width_item_thumb"
+                    android:layout_height="@dimen/height_item_thumb"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_action_restuarant"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:setImage="@{restaurant.thumb}" />
+
+                <TextView
+                    android:id="@+id/restaurant_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorText"
+                    android:layout_marginStart="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:contentDescription="@null"
+                    android:includeFontPadding="false"
+                    android:text="@{restaurant.name}"
+                    app:layout_constraintLeft_toRightOf="@+id/restaurant_thumb"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/restaurant_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_3dp"
+                    android:textColor="@color/colorText"
+                    android:contentDescription="@null"
+                    android:includeFontPadding="false"
+                    android:text="@{restaurant.cityName}"
+                    app:layout_constraintLeft_toRightOf="@+id/restaurant_thumb"
+                    app:layout_constraintTop_toBottomOf="@+id/restaurant_name" />
+
+                <TextView
+                    android:id="@+id/restaurant_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_20dp"
+                    android:contentDescription="@null"
+                    android:textColor="@color/colorText"
+                    android:includeFontPadding="false"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</layout>

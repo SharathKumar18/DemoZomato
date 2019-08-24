@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="homeViewModel"
+            type="com.sample.zomatodemo.ui.home.HomeViewModel" />
+    </data>
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent_layout">
+
+    <TextView
+        android:id="@+id/current_city"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/margin_5dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_size_15dp" />
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_15dp"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:textColor="@color/colorText"
+        android:drawablePadding="@dimen/margin_10dp"
+        android:drawableStart="@drawable/ic_action_search"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:padding="@dimen/margin_5dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_city"
+        android:hint="@string/enter_your_city" />
+
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_marginTop="@dimen/margin_50dp"
+        android:paddingStart="@dimen/margin_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="@{safeUnbox(homeViewModel.errorTextValue)?View.VISIBLE:View.GONE}"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_size_15dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/restaurant_list"
+        android:layout_marginTop="@dimen/margin_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:id="@+id/progress_circular"/>
+</android.support.constraint.ConstraintLayout>
+</layout>

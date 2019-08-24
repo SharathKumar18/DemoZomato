@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="margin_left_hamburger">24dp</dimen>
+    <dimen name="margin_left_toolbar_title">24dp</dimen>
+    <dimen name="margin_right_search">24dp</dimen>
+    <dimen name="splash_title_text">30sp</dimen>
+    <dimen name="text_size_15dp">15sp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="height_search_item">100dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_3dp">3dp</dimen>
+    <dimen name="item_height">100dp</dimen>
+    <dimen name="width_item_thumb">120dp</dimen>
+    <dimen name="height_item_thumb">80dp</dimen>
+    <dimen name="margin_50dp">50dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="detail_page_width_image">300dp</dimen>
+    <dimen name="detail_page_height_image">200dp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+
+</resources>
