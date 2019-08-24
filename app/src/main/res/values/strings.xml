@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ZomatoDemo</string>
+    <string name="app_name">DemoZomato</string>
     <string name="connected">Connected</string>
     <string name="disconnected">DisConnected</string>
     <string name="title_location_permission">Location</string>
