@@ -61,8 +61,13 @@ public class DetailFragment extends BaseFragment {
     }
 
     @Override
-    protected void initViews(View view) {
+    protected void initViews() {
         getViewModel().init();
+        setDataObserver();
+        setOrderButtonClickListener();
+    }
+
+    private void setDataObserver() {
         getViewModel().getUiLiveData().observe(this, this::handleUICallbacks);
         if (mRestaurantInfo != null && mRestaurantInfo.getR() != null) {
             getViewModel().setCityName(mRestaurantInfo.getCityName());
@@ -74,7 +79,9 @@ public class DetailFragment extends BaseFragment {
                 getDataBinder().setDetail(restaurantDetail);
             }
         });
+    }
 
+    private void setOrderButtonClickListener() {
         getDataBinder().btnOrder.setOnClickListener(view1 -> {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             String title = getResources().getString(R.string.chooser_title);
@@ -95,11 +102,10 @@ public class DetailFragment extends BaseFragment {
     }
 
     @Override
-    protected int handleBusCallback(Object event) {
-        return 0;
+    protected void handleBusCallback(Object event) {
     }
 
-    public DetailViewModel getViewModel() {
+    private DetailViewModel getViewModel() {
         return ViewModelProviders.of(this).get(DetailViewModel.class);
     }
 }

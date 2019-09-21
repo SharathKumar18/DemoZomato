@@ -16,7 +16,6 @@ public class ApiConstants {
     public static final String P ="p";
 
     public static final String START ="start";
-    public static final String START_DEFAULT_VALUE = "0";
 
     public static final String RADIUS ="radius";
     public static final String RADIUS_DEFAULT_VALUE ="1000";
@@ -35,5 +34,4 @@ public class ApiConstants {
     public static final int DEFAULT_COUNT =20;
     public static final String USER_KEY ="user-key";
 
-    public static final int DEFAULT_RETRY_VALUE = 3;
 }

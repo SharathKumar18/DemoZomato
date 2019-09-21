@@ -12,7 +12,7 @@ public class FragmentNavigator {
 
     public static void addFragment(Activity activity, FragmentManager fm,
                                    @IdRes int containerId, Fragment fragment, Bundle args,
-                                   boolean addToBackStack, String tag) {
+                                   String tag) {
         if (activity.isFinishing() && fm == null) return;
         try {
             if (args != null) {

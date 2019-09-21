@@ -25,9 +25,7 @@ public class LocationAccessHelper {
                 mBuilder = new AlertDialog.Builder(context)
                         .setTitle(com.sample.zomatodemo.R.string.title_location_permission)
                         .setMessage(com.sample.zomatodemo.R.string.text_location_permission)
-                        .setPositiveButton(com.sample.zomatodemo.R.string.ok, (dialogInterface, i) -> {
-                            requestLocationPermission(context);
-                        });
+                        .setPositiveButton(com.sample.zomatodemo.R.string.ok, (dialogInterface, i) -> requestLocationPermission(context));
                 mBuilder.create();
                 mBuilder.show();
                 return false;

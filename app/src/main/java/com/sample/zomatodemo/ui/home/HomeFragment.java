@@ -1,6 +1,7 @@
 package com.sample.zomatodemo.ui.home;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +46,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    protected void initViews(View view) {
+    protected void initViews() {
         getDataBinder().setHomeViewModel(getViewModel());
         getViewModel().init();
         showCurrentCity();
@@ -105,14 +106,14 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    private RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
+    private final RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
         @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
         }
 
         @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             if (mLayoutManager != null) {
                 if (dy > 0) {
@@ -170,7 +171,7 @@ public class HomeFragment extends BaseFragment {
             case AppConstants.UIConstants.HIDE_PROGRESS:
                 getDataBinder().progressCircular.setVisibility(View.GONE);
                 break;
-            case AppConstants.UIConstants.RESTUARANT_NOT_FOUND:
+            case AppConstants.UIConstants.RESTAURANT_NOT_FOUND:
                 resetPreviousSearchResult();
                 getDataBinder().restaurantList.setVisibility(View.GONE);
                 getDataBinder().errorMessage.setVisibility(View.VISIBLE);
@@ -193,7 +194,7 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    public HomeViewModel getViewModel() {
+    private HomeViewModel getViewModel() {
         return ViewModelProviders.of(this).get(HomeViewModel.class);
     }
 
@@ -203,18 +204,15 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    protected int handleBusCallback(Object event) {
+    protected void handleBusCallback(Object event) {
         if (event instanceof RxEvent) {
-            switch (((RxEvent) event).getEventTag()) {
-                case RxEvent.EVENT_LOCATION_UPDATED:
-                    if (mRestaurantData == null) {
-                        showCurrentCity();
-                        fetchRestaurantList(PreferenceHelper.getInstance().getPrefString(AppConstants.KEY_CITY_NAME), 0);
-                    }
-                    break;
+            if (((RxEvent) event).getEventTag() == RxEvent.EVENT_LOCATION_UPDATED) {
+                if (mRestaurantData == null) {
+                    showCurrentCity();
+                    fetchRestaurantList(PreferenceHelper.getInstance().getPrefString(AppConstants.KEY_CITY_NAME), 0);
+                }
             }
         }
 
-        return 0;
     }
 }

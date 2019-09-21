@@ -2,6 +2,7 @@ package com.sample.zomatodemo.recyclercomponents;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -30,8 +31,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         return position;
     }
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.search_item, parent, false);
         return new RestaurantItemViewHolder(binding);

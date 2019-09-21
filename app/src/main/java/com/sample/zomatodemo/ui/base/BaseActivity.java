@@ -27,11 +27,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getLayoutId();
 
-    public abstract int getContainerId();
+    protected abstract int getContainerId();
 
     abstract protected void initViews();
 
-    protected abstract int handleBusCallback(Object event);
+    protected abstract void handleBusCallback(Object event);
 
     @Inject
     protected MainBus mRxBus;
@@ -60,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         };
     }
-    public ViewDataBinding getDataBinder(){
+    protected ViewDataBinding getDataBinder(){
         return mBinding;
     }
 
@@ -76,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void registerForBusCallback() {
+    private void registerForBusCallback() {
         if (mRxBus != null) {
             mDisposable = new DisposableObserver<Object>() {
                 @Override
@@ -96,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void unSubScribe() {
+    private void unSubScribe() {
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
             mDisposable = null;
@@ -122,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    protected void showSnackBarMessage(String message) {
+    private void showSnackBarMessage(String message) {
         View parentLayout = findViewById(android.R.id.content);
         if (parentLayout != null) {
             Snackbar snackbar = Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG);
@@ -131,18 +131,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private FragmentManager.OnBackStackChangedListener getBackStackListener() {
-        FragmentManager.OnBackStackChangedListener result = new FragmentManager.OnBackStackChangedListener() {
-            public void onBackStackChanged() {
-                FragmentManager manager = getSupportFragmentManager();
-                if (manager != null) {
-                    BaseFragment fragment = (BaseFragment) manager.findFragmentById(getContainerId());
-                    if (fragment != null) {
-                        fragment.resumeScreen();
-                    }
+        return () -> {
+            FragmentManager manager = getSupportFragmentManager();
+            if (manager != null) {
+                BaseFragment fragment = (BaseFragment) manager.findFragmentById(getContainerId());
+                if (fragment != null) {
+                    fragment.resumeScreen();
                 }
             }
         };
-        return result;
     }
 
 }

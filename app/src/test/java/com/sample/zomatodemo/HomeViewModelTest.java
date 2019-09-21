@@ -29,9 +29,6 @@ public class HomeViewModelTest {
     @Mock
     private RetrofitInterface mRetrofitInerface;
 
-    @Mock
-    private DataManager mManager;
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);

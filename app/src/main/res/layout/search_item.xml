@@ -40,7 +40,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:setImage="@{restaurant.thumb}" />
+                    app:setImage="@{restaurant.thumb}"
+                    android:contentDescription="@null" />
 
                 <TextView
                     android:id="@+id/restaurant_name"

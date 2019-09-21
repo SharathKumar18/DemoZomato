@@ -21,5 +21,4 @@ public interface ApplicationComponent {
 
     void inject(BaseViewModel baseViewModel);
 
-    void inject(BaseViewHolder viewHolder);
 }

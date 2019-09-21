@@ -24,9 +24,6 @@ public class PreferenceHelper {
     public void editPrefLong(String name, float value) {
         sSharedPreferences.edit().putFloat(name, value).apply();
     }
-    public float getPrefFloat(String name) {
-        return sSharedPreferences.getFloat(name, 0);
-    }
 
     public String getPrefString(String name) {
         return sSharedPreferences.getString(name, null);

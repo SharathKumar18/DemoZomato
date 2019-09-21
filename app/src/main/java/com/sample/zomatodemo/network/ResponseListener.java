@@ -10,7 +10,7 @@ public abstract class ResponseListener <T>  extends DisposableObserver<T> {
 
     @Override
     public void onError(Throwable e) {
-        onFailure(e);
+        onFailure();
     }
 
     @Override
@@ -18,7 +18,7 @@ public abstract class ResponseListener <T>  extends DisposableObserver<T> {
         onSuccess(t);
     }
 
-    public abstract void onSuccess(T response);
+    protected abstract void onSuccess(T response);
 
-    public abstract void onFailure(Throwable error);
+    protected abstract void onFailure();
 }

@@ -7,7 +7,6 @@ public interface MainBus {
 
     Observable<Object> toObservable();
 
-    boolean hasObservers();
 }
 
 
