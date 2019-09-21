@@ -11,15 +11,6 @@ public class UserRating extends BaseObservable {
     @SerializedName("aggregate_rating")
     @Expose
     private Float aggregateRating;
-    @SerializedName("rating_text")
-    @Expose
-    private String ratingText;
-    @SerializedName("rating_color")
-    @Expose
-    private String ratingColor;
-    @SerializedName("votes")
-    @Expose
-    private Integer votes;
 
     private String rating;
 
@@ -43,27 +34,4 @@ public class UserRating extends BaseObservable {
         notifyPropertyChanged(BR.aggregateRating);
     }
 
-    public String getRatingText() {
-        return ratingText;
-    }
-
-    public void setRatingText(String ratingText) {
-        this.ratingText = ratingText;
-    }
-
-    public String getRatingColor() {
-        return ratingColor;
-    }
-
-    public void setRatingColor(String ratingColor) {
-        this.ratingColor = ratingColor;
-    }
-
-    public Integer getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Integer votes) {
-        this.votes = votes;
-    }
 }

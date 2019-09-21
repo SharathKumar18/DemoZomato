@@ -14,7 +14,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class DataManager {
-    private RetrofitInterface mApiService;
+    private final RetrofitInterface mApiService;
 
     public DataManager(RetrofitInterface retrofitInterface) {
         mApiService = retrofitInterface;
@@ -45,7 +45,7 @@ public class DataManager {
 
     public Disposable getRestaurantantDetail(String resID,ResponseListener<RestaurantDetail> callback) {
         return mApiService.getRestaurantDetail(NetworkUtils.getURL(ApiConstants.DETAIL),
-                NetworkUtils.getRestuarantDetail(resID))
+                NetworkUtils.getRestaurantDetail(resID))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(throwable -> null)

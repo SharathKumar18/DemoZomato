@@ -10,7 +10,6 @@ public class BindingUtils {
 
     @BindingAdapter("setImage")
     public static void setImageView(final ImageView imageView, String url) {
-
         if(imageView!=null){
             Glide.with(imageView.getContext())
                     .load(url)

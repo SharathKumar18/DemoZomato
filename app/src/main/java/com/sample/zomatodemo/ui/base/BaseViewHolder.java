@@ -12,16 +12,13 @@ import io.reactivex.observers.DisposableObserver;
 
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder{
 
-    private static final String TAG = BaseViewHolder.class.getSimpleName();
-
-    protected ViewDataBinding binding;
+    private final ViewDataBinding binding;
     @Inject
-    protected MainBus mRxBus;
-    private DisposableObserver mDisposable;
+    MainBus mRxBus;
     protected OnItemSelectListener mListener;
-    protected abstract int handleBusCallback(Object event);
+    protected abstract void handleBusCallback();
 
-    public BaseViewHolder(final ViewDataBinding binding) {
+    protected BaseViewHolder(final ViewDataBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
         registerForBusCallback();
@@ -32,12 +29,12 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder{
         binding.executePendingBindings();
     }
 
-    public void registerForBusCallback() {
+    private void registerForBusCallback() {
         if (mRxBus != null) {
-            mDisposable = new DisposableObserver<Object>() {
+            DisposableObserver mDisposable = new DisposableObserver<Object>() {
                 @Override
                 public void onNext(Object event) {
-                    handleBusCallback(event);
+                    handleBusCallback();
                 }
 
                 @Override

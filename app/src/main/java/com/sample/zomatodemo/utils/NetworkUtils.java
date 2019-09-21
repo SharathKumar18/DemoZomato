@@ -51,7 +51,7 @@ public class NetworkUtils {
         return queryMap;
     }
 
-    public static Map<String, String> getRestuarantDetail(final String restaurantID) {
+    public static Map<String, String> getRestaurantDetail(final String restaurantID) {
         Map<String, String> queryMap = new HashMap<>();
         queryMap.put(RESID, restaurantID);
         return queryMap;

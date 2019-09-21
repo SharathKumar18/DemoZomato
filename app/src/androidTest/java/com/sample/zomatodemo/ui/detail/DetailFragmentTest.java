@@ -37,12 +37,7 @@ public class DetailFragmentTest {
 
     @Before
     public void setUp() throws Throwable {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mActivityRule.getActivity().loadDetailFragment(new RestaurantInfo());
-            }
-        });
+        runOnUiThread(() -> mActivityRule.getActivity().loadDetailFragment(new RestaurantInfo()));
     }
 
     @Test
@@ -76,7 +71,6 @@ public class DetailFragmentTest {
 
     public static ViewAction setTextInTextView(final String value){
         return new ViewAction() {
-            @SuppressWarnings("unchecked")
             @Override
             public Matcher<View> getConstraints() {
                 return AllOf.allOf(isDisplayed(), isAssignableFrom(TextView.class));

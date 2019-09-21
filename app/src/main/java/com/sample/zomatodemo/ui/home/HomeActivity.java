@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -34,10 +35,10 @@ import com.sample.zomatodemo.utils.RxEvent;
 
 import static com.sample.zomatodemo.utils.AppConstants.GET_LOCATION;
 import static com.sample.zomatodemo.utils.AppConstants.KEY_CITY_NAME;
-import static com.sample.zomatodemo.utils.AppConstants.KEY_LATTITUDE;
+import static com.sample.zomatodemo.utils.AppConstants.KEY_LATITUDE;
 import static com.sample.zomatodemo.utils.AppConstants.KEY_LONGITUDE;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements LocationListener {
 
     private static final long LOCATION_REFRESH_TIME = 5000;
     private static final long LOCATION_REFRESH_DISTANCE = 1000;
@@ -55,66 +56,46 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-    protected void initViews() {
-        loadSplashFragment();
-        mBinder = (ActivityHomeBinding) getDataBinder();
+    protected void onStart() {
+        super.onStart();
         boolean isPermissionGranted = LocationAccessHelper.checkLocationPermission(this);
         if (isPermissionGranted) {
             findUserLocation();
         }
     }
 
-    private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            saveLocation(location);
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    };
+    @Override
+    protected void initViews() {
+        loadSplashFragment();
+        mBinder = (ActivityHomeBinding) getDataBinder();
+    }
 
     private void saveLocation(Location location) {
         String cityName = LocationAccessHelper.getCity(HomeActivity.this, location.getLatitude(), location.getLongitude());
         PreferenceHelper.getInstance().editPrefString(KEY_CITY_NAME, cityName);
-        PreferenceHelper.getInstance().editPrefLong(KEY_LATTITUDE, (float) location.getLatitude());
+        PreferenceHelper.getInstance().editPrefLong(KEY_LATITUDE, (float) location.getLatitude());
         PreferenceHelper.getInstance().editPrefLong(KEY_LONGITUDE, (float) location.getLongitude());
         RxEvent event = new RxEvent(RxEvent.EVENT_LOCATION_UPDATED);
         mRxBus.send(event);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case GET_LOCATION: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (LocationAccessHelper.checkSelfPermission(this)) {
-                        requestLocation();
-                    }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == GET_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (LocationAccessHelper.checkSelfPermission(this)) {
+                    requestLocation();
                 }
             }
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LOCATION_SETTINGS_REQUEST) {
-            switch (resultCode) {
-                case Activity.RESULT_OK:
-                    findUserLocation();
-                    break;
+            if (resultCode == Activity.RESULT_OK) {
+                findUserLocation();
             }
         }
     }
@@ -134,14 +115,12 @@ public class HomeActivity extends BaseActivity {
         result.addOnSuccessListener(locationSettingsResponse -> findUserLocation())
                 .addOnFailureListener(e -> {
                     int statusCode = ((ApiException) e).getStatusCode();
-                    switch (statusCode) {
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                            try {
-                                ResolvableApiException exception = (ResolvableApiException) e;
-                                exception.startResolutionForResult(HomeActivity.this,LOCATION_SETTINGS_REQUEST);
-                            } catch (IntentSender.SendIntentException sie) {
-                            }
-                            break;
+                    if (statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED) {
+                        try {
+                            ResolvableApiException exception = (ResolvableApiException) e;
+                            exception.startResolutionForResult(HomeActivity.this, LOCATION_SETTINGS_REQUEST);
+                        } catch (IntentSender.SendIntentException sie) {
+                        }
                     }
                 });
     }
@@ -153,7 +132,7 @@ public class HomeActivity extends BaseActivity {
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
+                LOCATION_REFRESH_DISTANCE, this);
     }
 
     private void loadSplashFragment() {
@@ -171,14 +150,25 @@ public class HomeActivity extends BaseActivity {
 
     public void loadDetailFragment(Object object) {
         FragmentNavigator.addFragment(this, getSupportFragmentManager(),
-                getContainerId(), DetailFragment.newInstance(object), null, false,
+                getContainerId(), DetailFragment.newInstance(object), null,
                 HomeFragment.class.getSimpleName());
         mBinder.toolbar.toolbar.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    protected void onStop() {
+        removeLocationUpdateListener();
+        super.onStop();
+    }
+
+    private void removeLocationUpdateListener() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        assert locationManager != null;
+        locationManager.removeUpdates(this);
+    }
 
     @Override
-    protected int handleBusCallback(Object event) {
+    protected void handleBusCallback(Object event) {
         if (event instanceof RxEvent) {
             switch (((RxEvent) event).getEventTag()) {
                 case RxEvent.EVENT_LOAD_HOME:
@@ -189,11 +179,30 @@ public class HomeActivity extends BaseActivity {
                     break;
             }
         }
-        return 0;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        saveLocation(location);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

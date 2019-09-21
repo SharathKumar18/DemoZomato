@@ -16,32 +16,30 @@ import io.reactivex.observers.DisposableObserver;
 
 public abstract class BaseViewModel extends AndroidViewModel {
 
-    private static final String TAG = "VKBaseViewModel";
     @Inject
-    protected MainBus mRxBus;
-    private DisposableObserver mDisposable;
+    MainBus mRxBus;
     @Inject
-    public DataManager mDataManager;
+    protected DataManager mDataManager;
 
-    protected abstract int handleBusCallback(Object event);
+    protected abstract void handleBusCallback();
 
-    private MutableLiveData<UiHelper> mUiLiveData = new MutableLiveData<>();
+    private final MutableLiveData<UiHelper> mUiLiveData = new MutableLiveData<>();
 
     public MutableLiveData<UiHelper> getUiLiveData() {
         return mUiLiveData;
     }
 
-    public BaseViewModel(Application application) {
+    protected BaseViewModel(Application application) {
         super(application);
 
     }
-    public void showProgress(){
+    protected void showProgress(){
         UiHelper helper=new UiHelper();
         helper.setStatus(AppConstants.UIConstants.SHOW_PROGRESS);
         mUiLiveData.setValue(helper);
     }
 
-    public void hideProgress(){
+    protected void hideProgress(){
         UiHelper helper=new UiHelper();
         helper.setStatus(AppConstants.UIConstants.HIDE_PROGRESS);
         mUiLiveData.setValue(helper);
@@ -52,18 +50,18 @@ public abstract class BaseViewModel extends AndroidViewModel {
         registerForBusCallback();
     }
 
-    public void sendUiData(int status){
+    protected void sendUiData(int status){
         UiHelper helper=new UiHelper();
         helper.setStatus(status);
         mUiLiveData.setValue(helper);
     }
 
-    public void registerForBusCallback() {
+    private void registerForBusCallback() {
         if (mRxBus != null) {
-            mDisposable = new DisposableObserver<Object>() {
+            DisposableObserver mDisposable = new DisposableObserver<Object>() {
                 @Override
                 public void onNext(Object event) {
-                    handleBusCallback(event);
+                    handleBusCallback();
                 }
 
                 @Override

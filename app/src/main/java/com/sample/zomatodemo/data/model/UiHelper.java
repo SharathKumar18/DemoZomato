@@ -6,9 +6,7 @@ public class UiHelper {
 
     public UiHelper() {
     }
-    public UiHelper(int status) {
-        this.status = status;
-    }
+
     public int getStatus() {
         return status;
     }
@@ -17,10 +15,4 @@ public class UiHelper {
         this.status=status;
     }
 
-    public void setMessage(String message){
-        mMessage=message;
-    }
-    public String getMessage(){
-        return mMessage;
-    }
 }

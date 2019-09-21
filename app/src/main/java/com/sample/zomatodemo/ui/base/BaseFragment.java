@@ -3,6 +3,7 @@ package com.sample.zomatodemo.ui.base;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import com.sample.zomatodemo.application.ZomatoDemoApplication;
 import com.sample.zomatodemo.rxbus.MainBus;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
@@ -21,11 +24,11 @@ public abstract class BaseFragment extends Fragment {
 
     abstract protected int getFragmentLayoutId();
 
-    protected abstract void initViews(View view);
+    protected abstract void initViews();
 
     protected abstract void resumeScreen();
 
-    protected abstract int handleBusCallback(Object event);
+    protected abstract void handleBusCallback(Object event);
 
     private ViewDataBinding mBinder;
     @Inject
@@ -38,17 +41,17 @@ public abstract class BaseFragment extends Fragment {
         setRetainInstance(true);
     }
 
-    protected View inflateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    private View inflateView(LayoutInflater inflater, @Nullable ViewGroup container) {
         mBinder = DataBindingUtil.inflate(inflater, getFragmentLayoutId(), container, false);
         return mBinder.getRoot();
     }
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflateView(inflater, container, savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflateView(inflater, container);
         setRetainInstance(true);
-        ((ZomatoDemoApplication)getActivity().getApplication()).getApplicationComponent().inject(this);
+        ((ZomatoDemoApplication) Objects.requireNonNull(getActivity()).getApplication()).getApplicationComponent().inject(this);
         registerForBusCallback();
-        initViews(view);
+        initViews();
         return view;
     }
 
@@ -56,7 +59,7 @@ public abstract class BaseFragment extends Fragment {
         return mBinder;
     }
 
-    public void registerForBusCallback() {
+    private void registerForBusCallback() {
         if (mRxBus != null) {
             mDisposable = new DisposableObserver<Object>() {
                 @Override
@@ -76,7 +79,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    public void unSubScribe() {
+    private void unSubScribe() {
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
             mDisposable = null;
@@ -89,10 +92,4 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroyView();
     }
 
-    public void showSnackBarMessage(String message) {
-        if (getView() != null) {
-            Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_LONG);
-            snackbar.show();
-        }
-    }
 }

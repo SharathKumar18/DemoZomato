@@ -3,7 +3,7 @@
     <string name="connected">Connected</string>
     <string name="disconnected">DisConnected</string>
     <string name="title_location_permission">Location</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="text_location_permission">This is required to fetch nearby restaurants for you</string>
     <string name="enter_your_city">Search city</string>
     <string name="current_city">Current city:</string>
@@ -12,7 +12,6 @@
     <string name="go_to_zomato">Go to Zomato</string>
     <string name="chooser_title">select app</string>
     <string name="detail_restaurant_city">This restaurant is present in</string>
-    <string name="detail_restaurant_name">The restaurant name is</string>
     <string name="detail_restaurant_rating">The restuarant rating is</string>
 
 </resources>

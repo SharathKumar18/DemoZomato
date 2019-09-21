@@ -14,23 +14,22 @@ import io.reactivex.disposables.Disposable;
 
 public class DetailViewModel extends BaseViewModel {
 
-    private int mTotalApiCall;
-    private CompositeDisposable mDisposable = new CompositeDisposable();
-    private MutableLiveData<RestaurantDetail> mDetailLiveData = new MutableLiveData<>();
+    private final CompositeDisposable mDisposable = new CompositeDisposable();
+    private final MutableLiveData<RestaurantDetail> mDetailLiveData = new MutableLiveData<>();
     private String mCityName;
 
     public DetailViewModel(Application application) {
         super(application);
     }
 
-    public MutableLiveData<RestaurantDetail> getDetailLiveData() {
+    MutableLiveData<RestaurantDetail> getDetailLiveData() {
         return mDetailLiveData;
     }
     public void setCityName(String cityName){
         mCityName=cityName;
     }
 
-    public void getRestaurantDetail(final int resId) {
+    void getRestaurantDetail(final int resId) {
         showProgress();
         Disposable disposable = mDataManager.getRestaurantantDetail(String.valueOf(resId),
                 new ResponseListener<RestaurantDetail>() {
@@ -49,7 +48,7 @@ public class DetailViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure(Throwable error) {
+            public void onFailure() {
                 hideProgress();
                 mDetailLiveData.setValue(null);
             }
@@ -58,8 +57,7 @@ public class DetailViewModel extends BaseViewModel {
     }
 
     @Override
-    protected int handleBusCallback(Object event) {
-        return 0;
+    protected void handleBusCallback() {
     }
 
     @Override

@@ -46,9 +46,6 @@ public class RestaurantInfo extends BaseObservable implements Parcelable {
     @SerializedName("currency")
     @Expose
     private String currency;
-    @SerializedName("offers")
-    @Expose
-    private List<Object> offers = null;
     @SerializedName("opentable_support")
     @Expose
     private Integer opentableSupport;
@@ -109,9 +106,6 @@ public class RestaurantInfo extends BaseObservable implements Parcelable {
     @SerializedName("events_url")
     @Expose
     private String eventsUrl;
-    @SerializedName("establishment_types")
-    @Expose
-    private List<Object> establishmentTypes = null;
     private String cityName;
 
     public RestaurantInfo(){
@@ -222,14 +216,6 @@ public class RestaurantInfo extends BaseObservable implements Parcelable {
         this.r = r;
     }
 
-    public String getApikey() {
-        return apikey;
-    }
-
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
-    }
-
     public String getId() {
         return id;
     }
@@ -247,13 +233,6 @@ public class RestaurantInfo extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.name);
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
     @Bindable
     public Location getLocation() {
         return location;
@@ -264,101 +243,6 @@ public class RestaurantInfo extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.location);
     }
 
-    public Integer getSwitchToOrderMenu() {
-        return switchToOrderMenu;
-    }
-
-    public void setSwitchToOrderMenu(Integer switchToOrderMenu) {
-        this.switchToOrderMenu = switchToOrderMenu;
-    }
-
-    public String getCuisines() {
-        return cuisines;
-    }
-
-    public void setCuisines(String cuisines) {
-        this.cuisines = cuisines;
-    }
-
-    public Integer getAverageCostForTwo() {
-        return averageCostForTwo;
-    }
-
-    public void setAverageCostForTwo(Integer averageCostForTwo) {
-        this.averageCostForTwo = averageCostForTwo;
-    }
-
-    public Integer getPriceRange() {
-        return priceRange;
-    }
-
-    public void setPriceRange(Integer priceRange) {
-        this.priceRange = priceRange;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public List<Object> getOffers() {
-        return offers;
-    }
-
-    public void setOffers(List<Object> offers) {
-        this.offers = offers;
-    }
-
-    public Integer getOpentableSupport() {
-        return opentableSupport;
-    }
-
-    public void setOpentableSupport(Integer opentableSupport) {
-        this.opentableSupport = opentableSupport;
-    }
-
-    public Integer getIsZomatoBookRes() {
-        return isZomatoBookRes;
-    }
-
-    public void setIsZomatoBookRes(Integer isZomatoBookRes) {
-        this.isZomatoBookRes = isZomatoBookRes;
-    }
-
-    public String getMezzoProvider() {
-        return mezzoProvider;
-    }
-
-    public void setMezzoProvider(String mezzoProvider) {
-        this.mezzoProvider = mezzoProvider;
-    }
-
-    public Integer getIsBookFormWebView() {
-        return isBookFormWebView;
-    }
-
-    public void setIsBookFormWebView(Integer isBookFormWebView) {
-        this.isBookFormWebView = isBookFormWebView;
-    }
-
-    public String getBookFormWebViewUrl() {
-        return bookFormWebViewUrl;
-    }
-
-    public void setBookFormWebViewUrl(String bookFormWebViewUrl) {
-        this.bookFormWebViewUrl = bookFormWebViewUrl;
-    }
-
-    public String getBookAgainUrl() {
-        return bookAgainUrl;
-    }
-
-    public void setBookAgainUrl(String bookAgainUrl) {
-        this.bookAgainUrl = bookAgainUrl;
-    }
 
     @Bindable
     public String getThumb() {
@@ -377,110 +261,6 @@ public class RestaurantInfo extends BaseObservable implements Parcelable {
     public void setUserRating(UserRating userRating) {
         this.userRating = userRating;
         notifyPropertyChanged(BR.userRating);
-    }
-
-    public String getPhotosUrl() {
-        return photosUrl;
-    }
-
-    public void setPhotosUrl(String photosUrl) {
-        this.photosUrl = photosUrl;
-    }
-
-    public String getMenuUrl() {
-        return menuUrl;
-    }
-
-    public void setMenuUrl(String menuUrl) {
-        this.menuUrl = menuUrl;
-    }
-
-    public String getFeaturedImage() {
-        return featuredImage;
-    }
-
-    public void setFeaturedImage(String featuredImage) {
-        this.featuredImage = featuredImage;
-    }
-
-    public Integer getHasOnlineDelivery() {
-        return hasOnlineDelivery;
-    }
-
-    public void setHasOnlineDelivery(Integer hasOnlineDelivery) {
-        this.hasOnlineDelivery = hasOnlineDelivery;
-    }
-
-    public Integer getIsDeliveringNow() {
-        return isDeliveringNow;
-    }
-
-    public void setIsDeliveringNow(Integer isDeliveringNow) {
-        this.isDeliveringNow = isDeliveringNow;
-    }
-
-    public Boolean getIncludeBogoOffers() {
-        return includeBogoOffers;
-    }
-
-    public void setIncludeBogoOffers(Boolean includeBogoOffers) {
-        this.includeBogoOffers = includeBogoOffers;
-    }
-
-    public String getDeeplink() {
-        return deeplink;
-    }
-
-    public void setDeeplink(String deeplink) {
-        this.deeplink = deeplink;
-    }
-
-    public String getOrderUrl() {
-        return orderUrl;
-    }
-
-    public void setOrderUrl(String orderUrl) {
-        this.orderUrl = orderUrl;
-    }
-
-    public String getOrderDeeplink() {
-        return orderDeeplink;
-    }
-
-    public void setOrderDeeplink(String orderDeeplink) {
-        this.orderDeeplink = orderDeeplink;
-    }
-
-    public Integer getIsTableReservationSupported() {
-        return isTableReservationSupported;
-    }
-
-    public void setIsTableReservationSupported(Integer isTableReservationSupported) {
-        this.isTableReservationSupported = isTableReservationSupported;
-    }
-
-    public Integer getHasTableBooking() {
-        return hasTableBooking;
-    }
-
-    public void setHasTableBooking(Integer hasTableBooking) {
-        this.hasTableBooking = hasTableBooking;
-    }
-
-    public String getEventsUrl() {
-        return eventsUrl;
-    }
-
-    public void setEventsUrl(String eventsUrl) {
-        this.eventsUrl = eventsUrl;
-    }
-
-    public List<Object> getEstablishmentTypes() {
-        return establishmentTypes;
-    }
-
-    public void setEstablishmentTypes(List<Object> establishmentTypes) {
-        this.establishmentTypes = establishmentTypes;
     }
 
     @Override

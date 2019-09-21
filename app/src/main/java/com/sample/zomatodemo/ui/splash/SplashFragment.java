@@ -4,7 +4,6 @@ package com.sample.zomatodemo.ui.splash;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import com.sample.zomatodemo.R;
 import com.sample.zomatodemo.ui.base.BaseFragment;
@@ -29,16 +28,15 @@ public class SplashFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-
     @Override
     protected int getFragmentLayoutId() {
         return R.layout.fragment_splash;
     }
 
     @Override
-    protected void initViews(View view) {
+    protected void initViews() {
         mHandler = new Handler();
-        mRunnable= () -> sendNextScreenEvent();
+        mRunnable= this::sendNextScreenEvent;
         mHandler.postDelayed(mRunnable,AppConstants.SPLASH_DELAY);
     }
 
@@ -53,8 +51,7 @@ public class SplashFragment extends BaseFragment {
     }
 
     @Override
-    protected int handleBusCallback(Object event) {
-        return 0;
+    protected void handleBusCallback(Object event) {
     }
 
     @Override

@@ -6,7 +6,7 @@ import io.reactivex.subjects.PublishSubject;
 public class Rxhelper implements MainBus {
 
     private static Rxhelper mBusClass;
-    final PublishSubject<Object> mBus;
+    private final PublishSubject<Object> mBus;
 
     public static Rxhelper getRxBus() {
         if (mBusClass == null) {
@@ -15,7 +15,7 @@ public class Rxhelper implements MainBus {
         return mBusClass;
     }
 
-    public Rxhelper() {
+    private Rxhelper() {
         mBus = PublishSubject.create();
     }
 
@@ -27,11 +27,6 @@ public class Rxhelper implements MainBus {
     @Override
     public Observable<Object> toObservable() {
         return mBus;
-    }
-
-    @Override
-    public boolean hasObservers() {
-        return mBus.hasObservers();
     }
 
 }

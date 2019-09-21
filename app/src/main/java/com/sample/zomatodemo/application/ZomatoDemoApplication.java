@@ -16,7 +16,6 @@ import com.sample.zomatodemo.injection.component.DaggerApplicationComponent;
 public class ZomatoDemoApplication extends Application implements LifecycleObserver {
 
     private static ZomatoDemoApplication sInstance;
-    private Activity mActivity;
     private ApplicationComponent mComponent;
 
     public ZomatoDemoApplication() {
@@ -49,14 +48,5 @@ public class ZomatoDemoApplication extends Application implements LifecycleObser
 
     public ApplicationComponent getApplicationComponent(){
         return mComponent;
-    }
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    public void onAppBackgrounded() {
-
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    public void onAppForegrounded() {
-
     }
 }

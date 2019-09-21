@@ -10,7 +10,7 @@ import com.sample.zomatodemo.ui.base.BaseViewHolder;
 
 public class RestaurantItemViewHolder extends BaseViewHolder implements View.OnClickListener {
 
-    private SearchItemBinding mItemBinding;
+    private final SearchItemBinding mItemBinding;
     private RestaurantInfo mRestaurant;
 
     public RestaurantItemViewHolder(ViewDataBinding binding) {
@@ -19,12 +19,7 @@ public class RestaurantItemViewHolder extends BaseViewHolder implements View.OnC
     }
 
     @Override
-    protected int handleBusCallback(Object event) {
-        return 0;
-    }
-
-    public static int getLayoutId() {
-        return R.layout.search_item;
+    protected void handleBusCallback() {
     }
 
     @Override

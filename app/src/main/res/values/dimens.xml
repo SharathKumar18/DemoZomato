@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="toolbar_height">56dp</dimen>
-    <dimen name="margin_left_hamburger">24dp</dimen>
     <dimen name="margin_left_toolbar_title">24dp</dimen>
-    <dimen name="margin_right_search">24dp</dimen>
     <dimen name="splash_title_text">30sp</dimen>
     <dimen name="text_size_15dp">15sp</dimen>
     <dimen name="margin_10dp">10dp</dimen>
-    <dimen name="height_search_item">100dp</dimen>
+    <dimen name="height_search_item" tools:keep="@dimen/height_search_item">100dp</dimen>
     <dimen name="margin_20dp">20dp</dimen>
     <dimen name="margin_3dp">3dp</dimen>
     <dimen name="item_height">100dp</dimen>

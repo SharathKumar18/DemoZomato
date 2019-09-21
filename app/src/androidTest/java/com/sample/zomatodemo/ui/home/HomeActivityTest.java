@@ -30,11 +30,6 @@ public class HomeActivityTest {
     @Rule
     public ActivityTestRule<HomeActivity> mActivityRule = new ActivityTestRule<>(HomeActivity.class);
 
-    @Before
-    public void setUp() {
-
-    }
-
     @Test
     public void checkContainer_withinActivity() {
         onView(withId(R.id.home_container))

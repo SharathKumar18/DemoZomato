@@ -12,23 +12,24 @@ import com.sample.zomatodemo.utils.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class HomeViewModel extends BaseViewModel {
 
-    private CompositeDisposable mDisposable = new CompositeDisposable();
-    private MutableLiveData<List<Restaurant>> mRestaurantListLiveData = new MutableLiveData<>();
-    private List<Restaurant> mRestaurantList = new ArrayList<>();
+    private final CompositeDisposable mDisposable = new CompositeDisposable();
+    private final MutableLiveData<List<Restaurant>> mRestaurantListLiveData = new MutableLiveData<>();
+    private final List<Restaurant> mRestaurantList = new ArrayList<>();
     private String mCityName;
-    private ObservableField<Boolean> mErrorTextValue = new ObservableField<>();
+    private final ObservableField<Boolean> mErrorTextValue = new ObservableField<>();
 
     public boolean getErrorTextValue() {
         return mErrorTextValue.get();
     }
 
-    public void setErrorTextValue(boolean value) {
+    void setErrorTextValue(boolean value) {
         mErrorTextValue.set(value);
     }
 
@@ -37,7 +38,7 @@ public class HomeViewModel extends BaseViewModel {
         mErrorTextValue.set(false);
     }
 
-    public MutableLiveData<List<Restaurant>> getRestaurantList() {
+    MutableLiveData<List<Restaurant>> getRestaurantList() {
         return mRestaurantListLiveData;
     }
 
@@ -49,7 +50,7 @@ public class HomeViewModel extends BaseViewModel {
         mCityName = cityName;
     }
 
-    public void getRestaurants(final String cityName, int offset) {
+    void getRestaurants(final String cityName, int offset) {
         showProgress();
         if (mCityName == null) {
             mCityName = cityName;
@@ -64,16 +65,16 @@ public class HomeViewModel extends BaseViewModel {
                 hideProgress();
                 if (response != null) {
                     if (response.getRestaurants() != null && response.getRestaurants().size() == 0) {
-                        sendUiData(AppConstants.UIConstants.RESTUARANT_NOT_FOUND);
+                        sendUiData(AppConstants.UIConstants.RESTAURANT_NOT_FOUND);
                     } else {
-                        mRestaurantList.addAll(response.getRestaurants());
+                        mRestaurantList.addAll(Objects.requireNonNull(response.getRestaurants()));
                         mRestaurantListLiveData.setValue(mRestaurantList);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Throwable error) {
+            public void onFailure() {
                 hideProgress();
                 mRestaurantList.clear();
                 mRestaurantListLiveData.setValue(null);
@@ -83,14 +84,12 @@ public class HomeViewModel extends BaseViewModel {
         mDisposable.add(disposable);
     }
 
-    public int getItemCount() {
+    int getItemCount() {
         return (mRestaurantList != null) ? mRestaurantList.size() : 0;
     }
 
-
     @Override
-    protected int handleBusCallback(Object event) {
-        return 0;
+    protected void handleBusCallback() {
     }
 
     @Override
