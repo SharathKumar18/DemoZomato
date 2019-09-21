@@ -9,7 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        setProperty("archivesBaseName", "Zomatodemo" + "-v" + versionCode + "(" + versionName + ")")
+        setProperty("archivesBaseName", "DemoZomato" + "-v" + versionCode + "(" + versionName + ")")
         multiDexEnabled true
     }
     compileOptions {
